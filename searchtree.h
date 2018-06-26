@@ -3,11 +3,15 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
+#include <stack>
 #include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <limits.h>
+
+#define INF INT_MAX
 
 #define REP(i,n) for(int i = 0,n_=(n);i < n_;++i)
 #define FOR(i,a,b) for(int i = a,n_=(b)+1;i < n_;++i)
@@ -38,6 +42,7 @@ struct AdjListNode{
 
 struct AdjList{
     struct AdjListNode *head;
+    int numberOfAdjNodes;
 };
 
 struct Graph{
@@ -47,15 +52,15 @@ struct Graph{
 };
 
 struct MinHeapNode{
-    int  v;
-    int dist;
+    int  v; //!< Identificador del nodo actual.
+    int dist; //!< Valor acumulado al nodo actual.
 };
 
 struct MinHeap{
-    int size;      //!< Number of heap nodes present currently.
-    int capacity;  //!< Capacity of min heap.
-    int *pos;      //!< This is needed for decreaseKey().
-    struct MinHeapNode **array;
+    int size;      //!< Número actual de nodos en el monticulo.
+    int capacity;  //!< Capacidad de nodos en el monticulo.
+    int *pos;      //!< Necesario para el descremento de llaves, aqui guardamos las posiciones.
+    struct MinHeapNode **array; //!< Arreglo de nodos del monticulo.
 };
 
 
@@ -97,8 +102,7 @@ public:
 private:
 };
 
-class searchtree
-{
+class searchtree{
 public:
     searchtree();
     ~searchtree();
@@ -116,12 +120,16 @@ public:
     int isEmpty(MinHeap *minHeap);
     void decreaseKey(MinHeap *minHeap, int v, int dist);
     void printArr(int dist[], int n);
-    void test_01();
     void dijkstra(Graph *graph, int src);
     /// Getter Setter
     unsigned long getMemoryRamBytes() const;
     void setMemoryRamBytes(unsigned long value);
     void addMemoryRamBytes(unsigned long value);
+    void test_01();
+    void test_02();
+    void test_03();
+    void printGraphAdjs(Graph *graph);
+    void addEdge(std::vector<int> adj[], int u, int v);
 };
 
 /*class CGraphDirected{
